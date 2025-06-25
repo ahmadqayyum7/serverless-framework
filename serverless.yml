@@ -24,6 +24,8 @@ provider:
           Action:
             - dynamodb:PutItem
             - dynamodb:GetItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
           Resource:
             - arn:aws:dynamodb:us-east-1:*:table/ProcessedData
 
@@ -57,6 +59,14 @@ functions:
           path: data
           method: get
           cors: true
+      - http:
+          path: data
+          method: put
+          cors: true 
+      - http: 
+          path: data/{id}
+          method: delete
+          cors: true  
 
 resources:
   Resources:

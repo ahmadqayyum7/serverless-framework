@@ -10,9 +10,17 @@ const client = new DynamoDBClient();
 const TABLE_NAME = process.env.TABLE_NAME;
 
 module.exports.handler = async (event) => {
+  console.log("Received event:", JSON.stringify(event)); // Debugging log
+
   const method = event.httpMethod;
   const body = event.body ? JSON.parse(event.body) : {};
-  const id = event.pathParameters ? event.pathParameters.id : body.id;
+  const id = method === 'GET'
+    ? event.queryStringParameters?.id
+    : event.pathParameters?.id || body.id;
+
+  if (!id) {
+    return response(400, { error: "Missing 'id'" });
+  }
 
   try {
     switch (method) {
@@ -27,7 +35,7 @@ module.exports.handler = async (event) => {
       case 'PUT':
         const updateCommand = new UpdateItemCommand({
           TableName: TABLE_NAME,
-          Key: { id: { S: body.id } },
+          Key: { id: { S: id } },
           UpdateExpression: 'SET name = :n, email = :e',
           ExpressionAttributeValues: {
             ':n': { S: body.name },
@@ -49,7 +57,7 @@ module.exports.handler = async (event) => {
         return response(405, { error: 'Method not allowed' });
     }
   } catch (err) {
-    console.error(err);
+    console.error("Handler error:", err);
     return response(500, { error: 'Server error', details: err.message });
   }
 };

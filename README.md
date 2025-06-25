@@ -73,11 +73,14 @@ GitHub Actions will handle deployment via `.github/workflows/deploy.yml`.
 
 ```
 .
-├── src/
-│   ├── warmer/
-│   ├── receiver/
-│   ├── processor/
-│   └── db-api/
+├── warmer/
+│   ├── handler.js
+├── receiver/
+│   ├── handler.js 
+├── processor/
+│   ├── handler.js 
+├──db-api/
+│  ├── handler.js
 ├── serverless.yml
 ├── package.json
 ├── .github/

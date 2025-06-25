@@ -11,7 +11,6 @@ This project is a production-ready serverless architecture deployed on AWS, usin
 
 ### Components:
 
-- **Route 53** – For custom domain routing.
 - **API Gateway** – Entry point for all HTTP requests.
 - **Warmer Lambda** – Periodically invoked to reduce cold start latency.
 - **Receiver Lambda** – Receives API requests and sends data to SQS.

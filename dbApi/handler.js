@@ -36,7 +36,10 @@ module.exports.handler = async (event) => {
         const updateCommand = new UpdateItemCommand({
           TableName: TABLE_NAME,
           Key: { id: { S: id } },
-          UpdateExpression: 'SET name = :n, email = :e',
+          UpdateExpression: 'SET #n = :n, email = :e',
+          ExpressionAttributeNames: {
+            '#n': 'name'
+          },
           ExpressionAttributeValues: {
             ':n': { S: body.name },
             ':e': { S: body.email }

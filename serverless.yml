@@ -1,0 +1,78 @@
+service: serverless-vpc-app
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    QUEUE_URL:
+      Ref: MyQueue
+    TABLE_NAME: ProcessedData
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - sqs:SendMessage
+            - sqs:ReceiveMessage
+            - sqs:DeleteMessage
+          Resource:
+            - Fn::GetAtt:
+                - MyQueue
+                - Arn
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+          Resource:
+            - arn:aws:dynamodb:us-east-1:*:table/ProcessedData
+
+functions:
+  warmer:
+    handler: warmer/handler.handler
+    events:
+      - schedule: rate(5 minutes)
+
+  receiver:
+    handler: receiver/handler.handler
+    events:
+      - http:
+          path: receive
+          method: post
+          cors: true
+
+  processor:
+    handler: processor/handler.handler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - MyQueue
+              - Arn
+
+  dbApi:
+    handler: dbApi/handler.handler
+    events:
+      - http:
+          path: data
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    MyQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: MyProcessingQueue
+
+    MyTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ProcessedData
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST

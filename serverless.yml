@@ -12,7 +12,7 @@ provider:
     subnetIds:
       - subnet-0297e6ed1589647cf
     securityGroupIds:
-      - sg-0d11805305d205f1f
+      - sg-0d1186503d6205b7f
   iam:
     role:
       statements:

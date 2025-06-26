@@ -33,7 +33,7 @@ provider:
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
           Resource:
-            - arn:aws:dynamodb:us-east-1:*:table/ProcessedData
+            - arn:aws:dynamodb:eu-west-2:*:table/ProcessedData
         - Effect: Allow
           Action:
             - ec2:CreateNetworkInterface

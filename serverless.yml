@@ -10,9 +10,10 @@ provider:
     TABLE_NAME: ProcessedData
   vpc:
     subnetIds:
-      - subnet-02bb755770ac10928   # ✅ Correct private subnet ID
+      - subnet-02bb755770ac10928   
+      - subnet-0d849095785171c1e
     securityGroupIds:
-      - sg-0d1186503d6205b7f        # ✅ Correct security group ID
+      - sg-0d1186503d6205b7f        
   iam:
     role:
       statements:

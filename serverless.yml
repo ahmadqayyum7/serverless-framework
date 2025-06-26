@@ -13,7 +13,7 @@ provider:
       - subnet-069a43b6937f1fb65   
       - subnet-004ab67b9dd129cab
     securityGroupIds:
-      - sg-0d1186503d6205b7f        
+      - sg-07c935673dc60caa3        
   iam:
     role:
       statements:

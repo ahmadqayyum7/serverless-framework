@@ -10,8 +10,8 @@ provider:
     TABLE_NAME: ProcessedData
   vpc:
     subnetIds:
-      - subnet-02bb755770ac10928   
-      - subnet-09b1e85f86172a7bb
+      - subnet-069a43b6937f1fb65   
+      - subnet-004ab67b9dd129cab
     securityGroupIds:
       - sg-0d1186503d6205b7f        
   iam:

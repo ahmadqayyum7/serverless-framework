@@ -78,8 +78,8 @@ GitHub Actions will handle deployment via `.github/workflows/deploy.yml`.
 │   ├── handler.js 
 ├── processor/
 │   ├── handler.js 
-├──db-api/
-│  ├── handler.js
+├── db-api/
+│   ├── handler.js
 ├── serverless.yml
 ├── package.json
 ├── .github/

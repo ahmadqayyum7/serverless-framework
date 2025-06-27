@@ -33,12 +33,8 @@ jobs:
           if [ ! -f package.json ]; then
             npm init -y
           fi
-
       - name: Install AWS SDK dependencies
         run: npm install @aws-sdk/client-sqs @aws-sdk/client-dynamodb
-
-      - name: Remove previous stack if bucket was deleted
-        run: serverless remove || true
 
       - name: Deploy using Serverless Framework
         run: serverless deploy

@@ -4,9 +4,6 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: eu-west-2
-  deploymentBucket:
-    name: serverless-deploy-serverless-vpc-app-eu-west-2  # must be globally unique
-    serverSideEncryption: AES256
   environment:
     QUEUE_URL:
       Ref: MyQueue
